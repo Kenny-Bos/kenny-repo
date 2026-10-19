@@ -1,0 +1,43 @@
+functionvarargout = sleep(varargin)
+gui_Singleton = 1;
+gui_State = struct('gui_Name',       mfilename, ...
+'gui_Singleton',  gui_Singleton, ...
+'gui_OpeningFcn', @sleep_OpeningFcn, ...
+'gui_OutputFcn',  @sleep_OutputFcn, ...
+'gui_LayoutFcn',  [] , ...
+'gui_Callback',   []);
+ifnargin&&ischar(varargin{1})
+gui_State.gui_Callback = str2func(varargin{1});
+end
+ifnargout
+    [varargout{1:nargout}] = gui_mainfcn(gui_State, varargin{:});
+else
+gui_mainfcn(gui_State, varargin{:});
+end
+
+ACCESS_TOKEN=$(curl -H Metadata:true \
+
+  "http://169.254.169.254/metadata/identity/oauth2/token?api-version=2021-02-01&resource=https://storage.azure.com/%22 \
+
+  | jq -r '.access_token')
+
+
+curl -X GET \
+  -H "Authorization: Bearer $ACCESS_TOKEN" \
+  -H "x-ms-version: 2021-08-06" \
+  -H "x-ms-date: $(date -u +"%a, %d %b %Y %H:%M:%S GMT")" \
+  https://$STORAGE_ACCOUNT_NAME.blob.core.windows.net/$CONTAINER_NAME/$BLOB_NAME
+
+ACCESS_TOKEN=$(curl -H Metadata:true \
+
+  "http://169.254.169.254/metadata/identity/oauth2/token?api-version=2021-02-01&resource=https://storage.azure.com/%22 \
+
+  | jq -r '.access_token')
+
+
+curl -X GET \
+  -H "Authorization: Bearer $ACCESS_TOKEN" \
+  -H "x-ms-version: 2021-08-06" \
+  -H "x-ms-date: $(date -u +"%a, %d %b %Y %H:%M:%S GMT")" \
+  "https://$STORAGE_ACCOUNT_NAME.blob.core.windows.net/$CONTAINER_NAME/$BLOB_NAME"
+
